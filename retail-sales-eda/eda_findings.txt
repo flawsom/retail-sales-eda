@@ -1,0 +1,70 @@
+============================================================
+STEP 1: DATA QUALITY AUDIT
+============================================================
+Columns with missing values:
+Region           433
+PaymentMethod    241
+Duplicate rows (excluding OrderID): 179
+Rows with negative Quantity (likely mis-logged returns): 8
+NetSales outliers beyond IQR upper bound (32,662): 1506
+
+============================================================
+STEP 2: CLEANING
+============================================================
+Removed 179 duplicate rows
+Capped 1482 extreme NetSales outliers at IQR upper bound
+Imputed 421 missing Region values with mode ('North')
+Imputed 240 missing PaymentMethod values with mode ('UPI')
+
+Final clean dataset: 12001 rows (from 12180 raw rows, 179 removed as duplicates)
+
+============================================================
+STEP 3: EXPLORATORY ANALYSIS
+============================================================
+Total Net Sales: 111,860,395
+Total Profit: 44,511,069
+Overall Profit Margin: 39.8%
+Average Order Value: 9,321
+
+Category performance:
+                orders   net_sales      profit  sales_share_pct
+Category                                                       
+Electronics       3351  80334433.0  35265253.0             72.0
+Home & Kitchen    2284  19398946.0   5763267.0             17.0
+Apparel           2613   7784651.0   2240117.0              7.0
+Beauty            1447   2794436.0    801342.0              2.0
+Groceries         2306   1547930.0    441089.0              1.0
+
+Top 2 categories drive 89.1% of total net sales
+
+Regional net sales:
+Region
+North    31342067.0
+East     27633875.0
+South    26854357.0
+West     26030097.0
+
+Peak sales month: 2024-10 (5,530,340)
+
+Profit margin by discount band:
+DiscountPct
+0%        44.7
+1-10%     36.3
+11-20%    24.6
+21%+      10.3
+
+Channel performance:
+             count         sum
+Channel                       
+Online        6578  60700522.0
+In-Store      3567  33430929.0
+Marketplace   1856  17728945.0
+
+============================================================
+STEP 4: KEY INSIGHTS
+============================================================
+1. Electronics is the top revenue-driving category (71.8% share).
+2. Top 2 categories together account for 89.1% of revenue -> concentration risk.
+3. Orders discounted at '21%+' show the weakest profit margin (10.3%), suggesting discount policy above ~20% erodes profitability.
+4. Peak sales month was 2024-10, consistent with a Q4 seasonal demand spike in Electronics and Apparel.
+5. Online channel leads in both order volume and revenue, ahead of In-Store and Marketplace.
